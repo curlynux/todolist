@@ -33,14 +33,13 @@ function Todolist() {
 
 	function editTodo() {
 		console.log(edit);
-		setTimeout(() => {
-			setEdit(true);
-			console.log("EDIT", edit);
-		}, 4000);
-		setTimeout(() => {
-			setEdit(false);
-			console.log("EDIT2", edit);
-		}, 3000);
+		console.log(todos);
+		if (edit === true) setEdit(false);
+		else setEdit(true);
+		console.log("EDIT TEST", edit);
+		todos.map((todo) => {
+			console.log(todo);
+		});
 	}
 
 	return (
