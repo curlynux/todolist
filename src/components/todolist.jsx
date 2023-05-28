@@ -26,15 +26,19 @@ function Todolist() {
 				text: input,
 			};
 			setTodos([...todos, newTodo]);
-			// setInput("");
+			setInput("");
 		}
 	}
 
 	return (
 		<main>
 			<ul>
-				{todos.map((todo) => {
-					return <li key={todo.id}>{todo.text}</li>;
+				{todos.map((todo, index) => {
+					return (
+						<li key={todo.id}>
+							{index + 1}: {todo.text}
+						</li>
+					);
 				})}
 			</ul>
 			<form>
