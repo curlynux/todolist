@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function Todolist() {
 	// const [unorderedList, setUnorderedList] = useState(0);
 	const [button, setButton] = useState(false);
+	const [edit, setEdit] = useState(false);
 	const [todos, setTodos] = useState([]);
 	console.log(todos);
 	const [input, setInput] = useState("");
@@ -30,8 +31,21 @@ function Todolist() {
 		}
 	}
 
+	function editTodo() {
+		console.log(edit);
+		setTimeout(() => {
+			setEdit(true);
+			console.log("EDIT", edit);
+		}, 4000);
+		setTimeout(() => {
+			setEdit(false);
+			console.log("EDIT2", edit);
+		}, 3000);
+	}
+
 	return (
 		<main>
+			<button onClick={editTodo}>edit</button>
 			<ul>
 				{todos.map((todo, index) => {
 					return (
