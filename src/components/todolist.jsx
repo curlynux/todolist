@@ -40,15 +40,9 @@ function Todolist() {
 			Array.from(li).map((li) => {
 				liValue.push(li.innerText);
 			});
-			Array.from(input).map((input) => {
+			Array.from(input).map((input, index) => {
 				input.style.display = "block";
-				input.value = liValue.map((li) => {
-					return li;
-				});
-
-				// liValue.map((listItem) => {
-				// input.value =
-				// });
+				input.value = liValue[index];
 			});
 
 			Array.from(deleteButton).map((del) => {
