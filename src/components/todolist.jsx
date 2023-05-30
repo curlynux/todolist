@@ -36,9 +36,16 @@ function Todolist() {
 	function editTodo() {
 		var deleteButton = document.getElementsByClassName("delete");
 		if (edit === true) {
-			Array.from(deleteButton).map((del) => console.log(del));
+			Array.from(deleteButton).map((del) => {
+				del.style.display = "block";
+			});
 			setEdit(false);
-		} else setEdit(true);
+		} else {
+			Array.from(deleteButton).map((del) => {
+				del.style.display = "none";
+			});
+			setEdit(true);
+		}
 	}
 
 	return (
@@ -49,9 +56,7 @@ function Todolist() {
 					return (
 						<li key={todo.id}>
 							{index + 1}: {todo.text}
-							<button className="delete" onClick={""}>
-								supprimer
-							</button>
+							<button className="delete">supprimer</button>
 						</li>
 					);
 				})}

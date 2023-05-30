@@ -29,5 +29,5 @@ ul li {
 }
 
 .delete {
-  display: none;
+  display: block;
 }
