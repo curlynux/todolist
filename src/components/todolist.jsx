@@ -35,7 +35,21 @@ function Todolist() {
 
 	function editTodo() {
 		var deleteButton = document.getElementsByClassName("delete");
+		var li = document.querySelectorAll("li");
+		var input = document.querySelectorAll("input.editText");
 		if (edit === true) {
+			console.log(input);
+			Array.from(input).map((input) => {
+				input.style.display = "block";
+				todos.map((todo) => {
+					console.log(todo);
+					input.textContent = todo.text;
+				});
+			});
+
+			Array.from(li).map((li) => {
+				console.log(li.innerText);
+			});
 			Array.from(deleteButton).map((del) => {
 				del.style.display = "block";
 			});
@@ -43,6 +57,10 @@ function Todolist() {
 		} else {
 			Array.from(deleteButton).map((del) => {
 				del.style.display = "none";
+			});
+
+			Array.from(input).map((input) => {
+				input.style.display = "none";
 			});
 			setEdit(true);
 		}
@@ -56,6 +74,7 @@ function Todolist() {
 					return (
 						<li key={todo.id}>
 							{index + 1}: {todo.text}
+							<input className="editText" type="text"></input>
 							<button className="delete">supprimer</button>
 						</li>
 					);
