@@ -7,9 +7,7 @@ function Todolist() {
 	const [todos, setTodos] = useState([]);
 	const [classRemove, setClassRemove] = useState(false);
 
-	console.log(todos);
 	const [input, setInput] = useState("");
-	console.log(input);
 	useEffect(() => {
 		setButton(true);
 	}, [button]);
@@ -37,19 +35,20 @@ function Todolist() {
 		var deleteButton = document.getElementsByClassName("delete");
 		var li = document.querySelectorAll("li");
 		var input = document.querySelectorAll("input.editText");
+		var liValue = [];
 		if (edit === true) {
-			console.log(input);
+			Array.from(li).map((li) => {
+				liValue.push(li.innerText);
+			});
+
 			Array.from(input).map((input) => {
 				input.style.display = "block";
-				todos.map((todo) => {
-					console.log(todo);
-					input.textContent = todo.text;
+
+				liValue.map((listItem) => {
+					input.value = listItem;
 				});
 			});
 
-			Array.from(li).map((li) => {
-				console.log(li.innerText);
-			});
 			Array.from(deleteButton).map((del) => {
 				del.style.display = "block";
 			});
