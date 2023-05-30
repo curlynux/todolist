@@ -5,6 +5,8 @@ function Todolist() {
 	const [button, setButton] = useState(false);
 	const [edit, setEdit] = useState(false);
 	const [todos, setTodos] = useState([]);
+	const [classRemove, setClassRemove] = useState(false);
+
 	console.log(todos);
 	const [input, setInput] = useState("");
 	console.log(input);
@@ -32,14 +34,11 @@ function Todolist() {
 	}
 
 	function editTodo() {
-		console.log(edit);
-		console.log(todos);
-		if (edit === true) setEdit(false);
-		else setEdit(true);
-		console.log("EDIT TEST", edit);
-		todos.map((todo) => {
-			console.log(todo);
-		});
+		var deleteButton = document.getElementsByClassName("delete");
+		if (edit === true) {
+			Array.from(deleteButton).map((del) => console.log(del));
+			setEdit(false);
+		} else setEdit(true);
 	}
 
 	return (
@@ -50,6 +49,9 @@ function Todolist() {
 					return (
 						<li key={todo.id}>
 							{index + 1}: {todo.text}
+							<button className="delete" onClick={""}>
+								supprimer
+							</button>
 						</li>
 					);
 				})}
