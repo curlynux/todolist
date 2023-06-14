@@ -71,7 +71,9 @@ function Todolist() {
 			todos.map((todo) => {
 				idArray.push(todo.id);
 				var i = 0;
-				if (clickedId === todo.id) console.log(todo, todo.id);
+				if (clickedId === todo.id) {
+					setTodos([...todos, (todo.text = modify)]);
+				}
 			});
 		}
 	}
