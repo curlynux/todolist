@@ -28,6 +28,6 @@ ul li {
   display: flex;
 }
 
-.delete, .editText {
+.edit {
   display: none;
 }

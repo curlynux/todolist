@@ -8,13 +8,9 @@ function Todolist() {
 	const [classRemove, setClassRemove] = useState(false);
 
 	const [input, setInput] = useState("");
-	useEffect(() => {
-		setButton(true);
-	}, [button]);
-
+	const [modify, setModify] = useState("");
 	useEffect(() => {
 		setTodos(todos);
-		// setInput(input);
 	}, [todos]);
 
 	function addItem(e) {
@@ -32,32 +28,51 @@ function Todolist() {
 	}
 
 	function editTodo() {
-		var deleteButton = document.getElementsByClassName("delete");
+		var editButton = document.getElementsByClassName("edit");
 		var li = document.querySelectorAll("li");
-		var input = document.querySelectorAll("input.editText");
+		var input = document.querySelectorAll("input.text");
 		var liValue = [];
 		if (edit === true) {
 			Array.from(li).map((li) => {
 				liValue.push(li.innerText);
 			});
+			console.log(editButton);
+			console.log(li);
+			console.log("test");
+			Array.from(editButton).map((edit, index) => {
+				edit.style.display = "block";
+			});
 			Array.from(input).map((input, index) => {
 				input.style.display = "block";
 				input.value = liValue[index];
+				console.log(input.value);
+			});
+			console.log(liValue);
+
+			Array.from(li).map((listItem) => {
+				listItem.value = input.value;
 			});
 
-			Array.from(deleteButton).map((del) => {
-				del.style.display = "block";
-			});
 			setEdit(false);
 		} else {
-			Array.from(deleteButton).map((del) => {
-				del.style.display = "none";
-			});
-
-			Array.from(input).map((input) => {
-				input.style.display = "none";
+			Array.from(editButton).map((edit, index) => {
+				edit.style.display = "none";
 			});
 			setEdit(true);
+		}
+	}
+
+	function modifyText(event) {
+		var inputText = document.querySelectorAll("input.text");
+		if (modify !== "") {
+			setModify(modify);
+			var clickedId = parseInt(event.target.parentNode.id);
+			var idArray = [];
+			todos.map((todo) => {
+				idArray.push(todo.id);
+				var i = 0;
+				if (clickedId === todo.id) console.log(todo, todo.id);
+			});
 		}
 	}
 
@@ -67,10 +82,18 @@ function Todolist() {
 			<ul>
 				{todos.map((todo, index) => {
 					return (
-						<li key={todo.id}>
+						<li key={todo.id} id={todo.id}>
 							{index + 1}: {todo.text}
-							<input className="editText" type="text"></input>
-							<button className="delete">supprimer</button>
+							<input
+								className="edit text"
+								type="text"
+								onChange={(e) => setModify(e.target.value)}
+								value={modify}
+							></input>
+							<button className="edit" onClick={modifyText}>
+								modify
+							</button>
+							<button className="edit">supprimer</button>
 						</li>
 					);
 				})}
