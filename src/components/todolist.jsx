@@ -6,9 +6,8 @@ function Todolist() {
 	const [edit, setEdit] = useState(false);
 	const [todos, setTodos] = useState([]);
 	const [classRemove, setClassRemove] = useState(false);
-
 	const [input, setInput] = useState("");
-	const [modify, setModify] = useState("");
+	const [modify, setModify] = useState([]);
 	useEffect(() => {
 		setTodos(todos);
 	}, [todos]);
@@ -25,6 +24,8 @@ function Todolist() {
 			setTodos([...todos, newTodo]);
 			setInput("");
 		}
+		modify.push("");
+		console.log(modify);
 	}
 
 	function editTodo() {
@@ -62,8 +63,7 @@ function Todolist() {
 		}
 	}
 
-	function modifyText(event) {
-		var inputText = document.querySelectorAll("input.text");
+	function modifyText(event, id) {
 		if (modify !== "") {
 			setModify(modify);
 			var clickedId = parseInt(event.target.parentNode.id);
@@ -72,7 +72,12 @@ function Todolist() {
 				idArray.push(todo.id);
 				var i = 0;
 				if (clickedId === todo.id) {
-					setTodos([...todos, (todo.text = modify)]);
+					setTodos(
+						todos.map((todo) => {
+							if (clickedId === todo.id) return { ...todo, text: modify };
+							return todo;
+						})
+					);
 				}
 			});
 		}
@@ -89,8 +94,12 @@ function Todolist() {
 							<input
 								className="edit text"
 								type="text"
-								onChange={(e) => setModify(e.target.value)}
-								value={modify}
+								onChange={(Event) => {
+									const modifiedArry = [...modify];
+									modifiedArry[index] = Event.target.value;
+									setModify(modifiedArry);
+								}}
+								value={modify[index]}
 							></input>
 							<button className="edit" onClick={modifyText}>
 								modify
