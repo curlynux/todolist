@@ -1,13 +1,28 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 
 function Todolist() {
-	// const [unorderedList, setUnorderedList] = useState(0);
-	const [button, setButton] = useState(false);
 	const [edit, setEdit] = useState(false);
 	const [todos, setTodos] = useState([]);
-	const [classRemove, setClassRemove] = useState(false);
 	const [input, setInput] = useState("");
 	const [modify, setModify] = useState([]);
+
+	const testFn = () => {
+		return null;
+	};
+	const queryClient = useQueryClient();
+	const query = useQuery({
+		queryKey: ["todos"],
+		queryFn: testFn,
+	});
+
+	const mutation = useMutation({
+		mutationFn: modifyText,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["todos"] });
+		},
+	});
 	useEffect(() => {
 		setTodos(todos);
 	}, [todos]);
@@ -23,6 +38,7 @@ function Todolist() {
 			};
 			setTodos([...todos, newTodo]);
 			setInput("");
+			queryClient.setQueryData(["todos"], [...todos, newTodo]);
 		}
 		modify.push("");
 		console.log(modify);
@@ -81,13 +97,17 @@ function Todolist() {
 				}
 			});
 		}
+		var li = document.querySelectorAll("li");
+		Array.from(li).map((listItem) => {
+			console.log(listItem);
+		});
 	}
 
 	return (
 		<main>
 			<button onClick={editTodo}>edit</button>
 			<ul>
-				{todos.map((todo, index) => {
+				{query.data?.map((todo, index) => {
 					return (
 						<li key={todo.id} id={todo.id}>
 							{index + 1}: {todo.text}
