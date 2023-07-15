@@ -22,3 +22,24 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+{/* {todos.map((todo, index) => {
+					return (
+						<li key={todo.id} id={todo.id}>
+							{index + 1}: {todo.text}
+							<input
+								className="edit text"
+								type="text"
+								onChange={(Event) => {
+									const modifiedArry = [...modify];
+									modifiedArry[index] = Event.target.value;
+									setModify(modifiedArry);
+								}}
+								value={modify[index]}
+							></input>
+							<button className="edit" onClick={modifyText}>
+								modify
+							</button>
+							<button className="edit">supprimer</button>
+						</li>
+					);
+				})} */}

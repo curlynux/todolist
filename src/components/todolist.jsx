@@ -11,18 +11,13 @@ function Todolist() {
 	const testFn = () => {
 		return null;
 	};
+
 	const queryClient = useQueryClient();
 	const query = useQuery({
 		queryKey: ["todos"],
 		queryFn: testFn,
 	});
 
-	const mutation = useMutation({
-		mutationFn: modifyText,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
-		},
-	});
 	useEffect(() => {
 		setTodos(todos);
 	}, [todos]);
@@ -79,7 +74,7 @@ function Todolist() {
 		}
 	}
 
-	function modifyText(event, id) {
+	function modifyText(event) {
 		if (modify !== "") {
 			setModify(modify);
 			var clickedId = parseInt(event.target.parentNode.id);
@@ -90,24 +85,39 @@ function Todolist() {
 				if (clickedId === todo.id) {
 					setTodos(
 						todos.map((todo) => {
-							if (clickedId === todo.id) return { ...todo, text: modify };
+							if (clickedId === todo.id) {
+								return { ...todo, text: modify };
+							}
 							return todo;
 						})
 					);
 				}
 			});
 		}
-		var li = document.querySelectorAll("li");
-		Array.from(li).map((listItem) => {
-			console.log(listItem);
-		});
 	}
+
+	// function updateText(event, text, todoId) {
+	// 	todos.map((todo) => {
+	// 		if (parseInt(event.target.id) === todo.id) console.log(todo, event);
+	// 	});
+	// 	mutation.mutate({ todoId, text: modify });
+	// }
+
+	// const mutation = useMutation((updatedText, event) => {
+	// 	return setModify((prevTodos) => {
+	// 		return prevTodos.map((todo) => {
+	// 			if (parseInt(event.target.id) === todo.id)
+	// 				return { ...todo, text: updatedText.text };
+	// 			return todo;
+	// 		});
+	// 	});
+	// });
 
 	return (
 		<main>
 			<button onClick={editTodo}>edit</button>
 			<ul>
-				{query.data?.map((todo, index) => {
+				{todos.map((todo, index) => {
 					return (
 						<li key={todo.id} id={todo.id}>
 							{index + 1}: {todo.text}
@@ -115,9 +125,9 @@ function Todolist() {
 								className="edit text"
 								type="text"
 								onChange={(Event) => {
-									const modifiedArry = [...modify];
-									modifiedArry[index] = Event.target.value;
-									setModify(modifiedArry);
+									const modifiedArray = [...modify];
+									modifiedArray[index] = Event.target.value;
+									setModify(modifiedArray);
 								}}
 								value={modify[index]}
 							></input>
