@@ -94,6 +94,13 @@ function Todolist() {
 				}
 			});
 		}
+		console.log(modify);
+		setModify(
+			modify.map((field) => {
+				if (field.length > 0) return [(field = "")];
+			})
+		);
+		console.log(modify);
 	}
 
 	// function updateText(event, text, todoId) {
